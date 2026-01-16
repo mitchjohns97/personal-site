@@ -88,7 +88,7 @@ export const featuredProjects = [
     tags: ["Python", "Streamlit", "Pandas", "Altair"],
     image: "/images/projects/spotify-analyzer.png", // Add a screenshot here
     github: "https://github.com/mitchjohns97/claude_spotify",
-    live: "", // Will be updated with Streamlit Cloud URL
+    live: "https://claudespotify-4bqn2w3rarjln3pgyf3ipp.streamlit.app/"
     featured: true,
   },
   {

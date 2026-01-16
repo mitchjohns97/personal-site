@@ -10,7 +10,7 @@ tags:
   - Data Visualization
 image: "/images/projects/spotify-analyzer.png"
 github: "https://github.com/mitchjohns97/claude_spotify"
-live: ""
+live: "https://claudespotify-4bqn2w3rarjln3pgyf3ipp.streamlit.app/"
 featured: true
 ---
 
