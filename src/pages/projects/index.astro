@@ -1,0 +1,42 @@
+---
+/**
+ * projects/index.astro - Projects listing page
+ *
+ * Shows all projects. Projects are defined in src/content/site.ts
+ * and can also be added as markdown files in src/content/projects/
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/ProjectCard.tsx';
+import { featuredProjects, siteConfig } from '../../content/site';
+---
+
+<BaseLayout title={`Projects | ${siteConfig.name}`}>
+  <section class="py-20">
+    <div class="container">
+      <div class="max-w-5xl mx-auto">
+        <!-- Page Header -->
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Projects</h1>
+        <p class="text-xl text-text-secondary mb-12 max-w-2xl">
+          A collection of projects I've built. Each represents different skills,
+          technologies, and problem-solving approaches.
+        </p>
+
+        <!-- Projects Grid -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredProjects.map((project, index) => (
+            <ProjectCard project={project} index={index} client:visible />
+          ))}
+        </div>
+
+        <!-- Empty State (for when you're just starting) -->
+        {featuredProjects.length === 0 && (
+          <div class="text-center py-12">
+            <p class="text-text-muted">
+              Projects coming soon! Add them in <code>src/content/site.ts</code>
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

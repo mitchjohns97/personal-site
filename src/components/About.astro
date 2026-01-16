@@ -1,0 +1,46 @@
+---
+/**
+ * About.astro
+ *
+ * About section on the homepage.
+ * Content comes from src/content/site.ts
+ */
+import { siteConfig } from '../content/site';
+---
+
+<section id="about" class="py-20 bg-bg-secondary">
+  <div class="container">
+    <div class="max-w-4xl mx-auto">
+      <!-- Section Header -->
+      <h2 class="text-3xl font-bold mb-12 flex items-center gap-4">
+        <span class="text-accent">01.</span>
+        About Me
+        <span class="flex-1 h-px bg-border ml-4" />
+      </h2>
+
+      <div class="grid md:grid-cols-3 gap-12">
+        <!-- Bio Text -->
+        <div class="md:col-span-2 space-y-4">
+          {siteConfig.about.paragraphs.map((paragraph) => (
+            <p class="text-text-secondary leading-relaxed">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+
+        <!-- Skills List -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Technologies I work with:</h3>
+          <ul class="grid grid-cols-1 gap-2">
+            {siteConfig.about.skills.map((skill) => (
+              <li class="flex items-center gap-2 text-sm text-text-secondary">
+                <span class="text-accent">&#9656;</span>
+                {skill}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

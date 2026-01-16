@@ -1,0 +1,92 @@
+---
+/**
+ * blog/index.astro - Blog listing page
+ *
+ * Shows all blog posts. Add new posts as markdown files in src/content/blog/
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../content/site';
+
+// Get all blog posts, sorted by date (newest first)
+const posts = (await getCollection('blog'))
+  .filter(post => !post.data.draft) // Hide drafts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<BaseLayout title={`Blog | ${siteConfig.name}`}>
+  <section class="py-20">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <!-- Page Header -->
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
+        <p class="text-xl text-text-secondary mb-12">
+          Thoughts, tutorials, and things I've learned along the way.
+        </p>
+
+        <!-- Posts List -->
+        <div class="space-y-12">
+          {posts.map((post) => (
+            <article class="group">
+              <a href={`/blog/${post.slug}`} class="block">
+                {/* Date */}
+                <time class="text-sm text-text-muted">
+                  {formatDate(post.data.date)}
+                </time>
+
+                {/* Title */}
+                <h2 class="text-2xl font-semibold mt-2 mb-3 group-hover:text-accent transition-colors">
+                  {post.data.title}
+                </h2>
+
+                {/* Description */}
+                <p class="text-text-secondary mb-4">
+                  {post.data.description}
+                </p>
+
+                {/* Tags */}
+                {post.data.tags && (
+                  <div class="flex flex-wrap gap-2">
+                    {post.data.tags.map((tag: string) => (
+                      <span class="text-xs px-2 py-1 bg-bg-secondary text-text-muted rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Read more indicator */}
+                <span class="inline-flex items-center gap-1 text-accent text-sm mt-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                  Read more
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <!-- Empty State -->
+        {posts.length === 0 && (
+          <div class="text-center py-12">
+            <p class="text-text-muted mb-4">
+              No posts yet. Add markdown files to <code>src/content/blog/</code> to get started.
+            </p>
+            <p class="text-sm text-text-muted">
+              Each <code>.md</code> file becomes a blog post!
+            </p>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

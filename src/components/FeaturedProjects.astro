@@ -1,0 +1,48 @@
+---
+/**
+ * FeaturedProjects.astro
+ *
+ * Featured projects section on the homepage.
+ * Projects are defined in src/content/site.ts
+ */
+import { featuredProjects } from '../content/site';
+import ProjectCard from './ProjectCard.tsx';
+---
+
+<section id="projects" class="py-20">
+  <div class="container">
+    <div class="max-w-5xl mx-auto">
+      <!-- Section Header -->
+      <h2 class="text-3xl font-bold mb-4 flex items-center gap-4">
+        <span class="text-accent">02.</span>
+        Featured Projects
+        <span class="flex-1 h-px bg-border ml-4" />
+      </h2>
+
+      <p class="text-text-secondary mb-12 max-w-2xl">
+        A selection of projects I've worked on. Each one represents a unique challenge
+        and learning experience.
+      </p>
+
+      <!-- Projects Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {featuredProjects.filter(p => p.featured).map((project, index) => (
+          <ProjectCard project={project} index={index} client:visible />
+        ))}
+      </div>
+
+      <!-- View All Link -->
+      <div class="text-center mt-12">
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-2 text-accent font-medium hover:underline"
+        >
+          View All Projects
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
